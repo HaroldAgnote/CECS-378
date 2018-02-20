@@ -36,9 +36,14 @@ res.send('You are in the right place.');
 
 var options = {
     key: fs.readFileSync('privkey.pem'),
-    cert: fs.readFileSync('fullchain.pem')
+    cert: fs.readFileSync('fullchain.pem'),
     ciphers: cipher
 };
 
 http.createServer(httpApp).listen(8080);
 https.createServer(options, httpsApp).listen(8443);
+
+console.log("Server running on localhost");
+console.log("http running on port 8080");
+console.log("https running on port 8443");
+

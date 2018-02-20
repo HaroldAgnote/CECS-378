@@ -14,7 +14,7 @@ httpsApp.use(helmet.hsts({
     includeSubdomains: true,
     force: true}));
 
-var cipher = 'ECDHE-ECDSA-AES256-GCM-SHA384',
+var cipher = ['ECDHE-ECDSA-AES256-GCM-SHA384',
 'ECDHE-RSA-AES256-GCM-SHA384',
 'ECDHE-RSA-AES256-CBC-SHA384',
 'ECDHE-RSA-AES256-CBC-SHA256',

@@ -54,4 +54,4 @@ def MyFileDecrypt(filePath):
        	# Write the results
         file = open(filePath, 'wb')
         file.write(plainText)
-        print("Results of decryption stored at: decryptedFile" + ext)
+        print("Results of decryption stored at: " + filePath)

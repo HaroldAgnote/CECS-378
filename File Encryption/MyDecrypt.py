@@ -36,8 +36,12 @@ def MyFileDecrypt(filePath):
         key = ""
         ext = ""
 
+        fileName = filePath.rsplit(".", 1)[0]
+
+        jsonFileName = fileName + ".json"
+
         # Extract data from json file
-        with open(filePath) as f:    
+        with open(jsonFileName) as f:    
            data = json.load(f)
            cipherText = b64decode(data["Cipher Text"])
            IV = b64decode(data["IV"])
@@ -48,6 +52,6 @@ def MyFileDecrypt(filePath):
        	plainText = MyDecrypt(cipherText, key, IV)
 
        	# Write the results
-        file = open("decryptedFile" + ext, 'wb')
+        file = open(filePath, 'wb')
         file.write(plainText)
         print("Results of decryption stored at: decryptedFile" + ext)

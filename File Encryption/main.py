@@ -2,18 +2,32 @@ import os
 import json
 from base64 import b64encode
 from cryptography.hazmat.primitives.asymmetric import rsa
+from cryptography.hazmat.primitives import serialization
 from cryptography.hazmat.backends import default_backend
 import MyEncrypt
 import MyDecrypt
 import constants
 
 def genRSAKey():
-	privateKey = rsa.generate_private_key(public_exponent = 65537, key_size = 2048, backend = default_backend())
-	with open("privateKey.pem", 'w') as f:
-		f.write(privateKey)
-	publicKey = privateKey.publicKey()
-	with open("publicKey.pem", 'w') as f:
-		f.write(publicKey)
+	privateKey = rsa.generate_private_key(
+		public_exponent = 65537, 
+		key_size = 2048, 
+		backend = default_backend()
+	)
+	privatePEM = privateKey.private_bytes(
+		encoding = serialization.Encoding.PEM, 
+		format = serialization.PrivateFormat.TraditionalOpenSSL,
+		encryption_algorithm = serialization.NoEncryption()
+	)
+	with open("privateKey.pem", 'wb') as f:
+		f.write(privatePEM)
+	publicKey = privateKey.public_key()
+	publicPEM = publicKey.public_bytes(
+		encoding = serialization.Encoding.PEM,
+		format = serialization.PublicFormat.SubjectPublicKeyInfo
+	)
+	with open("publicKey.pem", 'wb') as f:
+		f.write(publicPEM)
 
 # Allows the user to input a filepath of a file to encrypt/decrypt
 repeat = True
@@ -23,7 +37,7 @@ while(repeat):
     print("1. Encrypt a file")
     print("2. Decrypt a file")
     print("3. Exit")
-    selection = str(input())
+    selection = "1"
     if selection == "1":
         # Get user input for the file
         #input("Enter the filepath for the file to be encrypted (e.g. larry.jpg): ")

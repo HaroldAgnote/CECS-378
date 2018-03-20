@@ -2,8 +2,8 @@ import os
 import base64
 import constants
 from cryptography.hazmat.primitives.ciphers import Cipher, algorithms, modes
-from cryptography.hazmat.primitives.asymmetric import rsa
-from cryptography.hazmat.primitives import padding, serialization
+from cryptography.hazmat.primitives.asymmetric import rsa, padding as apadding
+from cryptography.hazmat.primitives import padding, serialization, hashes
 from cryptography.hazmat.backends import default_backend
 
 
@@ -60,7 +60,14 @@ def MyRSAEncrypt(filePath, RSAPublicKeyFilePath):
 
 	public_key = ""
 	with open(RSAPublicKeyFilePath, 'rb') as keyFile:
-		public_key = serialization.load_ssh_public_key(keyFile.read(), backend = default_backend())
+		public_key = serialization.load_pem_public_key(keyFile.read(), backend = default_backend())
 
-	RSAkey = public_key.encrypt(key, padding.OAEP(mgf = padding.MFG1(algorithm = hashes.SHA256()), algorithm = hashes.SHA256(), laebl = None))
+	RSAkey = public_key.encrypt(
+		key, 
+		apadding.OAEP(
+			mgf = apadding.MGF1(algorithm = hashes.SHA256()), 
+			algorithm = hashes.SHA256(), 
+			label = None
+		)
+	)
 	return encryptedFile, IV, RSAkey, ext

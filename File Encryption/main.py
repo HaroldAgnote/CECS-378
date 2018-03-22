@@ -54,14 +54,16 @@ while(repeat):
         outfile = open(jsonFileName, 'w')
 
         jsonData = {}
+        
+        print("Ciphertext type: " + str(type(cipherText)))
 
         #Create the dictionary
-        jsonData["Cipher_Text"] =  b64encode(cipherText).decode('utf-8'), 
+        jsonData["Cipher Text"] =  b64encode(cipherText).decode('utf-8'), 
         jsonData["IV"] =  b64encode(IV).decode('utf-8'), 
         jsonData["Key"] =  b64encode(key).decode('utf-8'), 
         jsonData["Extension"] =  ext
 
-        json.dump(jsonData, outfile)
+        json.dump(jsonData, outfile, ensure_ascii=False)
 
         outfile.close()
 

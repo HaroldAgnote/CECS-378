@@ -48,14 +48,23 @@ while(repeat):
         # Call the encryptor
         cipherText, IV, key, ext = MyEncrypt.MyRSAEncrypt(filePath = filePath, RSAPublicKeyFilePath = "publicKey.pem")
 
-        #Create the dictionary
-        jsonData = {"Cipher Text": b64encode(cipherText).decode('utf-8'), "IV": b64encode(IV).decode('utf-8'), "Key": b64encode(key).decode('utf-8'), "Extension": ext}
-        fileName = filePath.rsplit(".", 1)[0]
-
         # Create json file from dictionary
+        fileName = filePath.rsplit(".", 1)[0]
         jsonFileName = fileName + ".json"
-        with open(jsonFileName, 'w') as outfile:
-            json.dump(jsonData, outfile)
+        outfile = open(jsonFileName, 'w')
+
+        jsonData = {}
+
+        #Create the dictionary
+        jsonData["Cipher_Text"] =  b64encode(cipherText).decode('utf-8'), 
+        jsonData["IV"] =  b64encode(IV).decode('utf-8'), 
+        jsonData["Key"] =  b64encode(key).decode('utf-8'), 
+        jsonData["Extension"] =  ext
+
+        json.dump(jsonData, outfile)
+
+        outfile.close()
+
         print("Results of encryption stored at: " + jsonFileName)
     elif selection == "2":
         # Get user input for encrypted file

@@ -37,11 +37,10 @@ while(repeat):
     print("1. Encrypt a file")
     print("2. Decrypt a file")
     print("3. Exit")
-    selection = "1"
+    selection = input()
     if selection == "1":
         # Get user input for the file
-        #input("Enter the filepath for the file to be encrypted (e.g. larry.jpg): ")
-        filePath = "files/larry.jpg"
+        filePath = input("Enter the filepath for the file to be encrypted (e.g. larry.jpg): ")
 
         # Generate private/public key
         genRSAKey()
@@ -51,7 +50,6 @@ while(repeat):
 
         #Create the dictionary
         jsonData = {"Cipher Text": b64encode(cipherText).decode('utf-8'), "IV": b64encode(IV).decode('utf-8'), "Key": b64encode(key).decode('utf-8'), "Extension": ext}
-
         fileName = filePath.rsplit(".", 1)[0]
 
         # Create json file from dictionary
@@ -63,8 +61,11 @@ while(repeat):
         # Get user input for encrypted file
         filePath = input("Enter the filepath for the file to be decrypted: ")
 
+        # Set the private key filepath
+        RSAPrivateKeyFilePath = "privateKey.pem"
+
         # Decrypt the encrypted message
-        MyDecrypt.MyFileDecrypt(filePath)
+        MyDecrypt.MyRSADecrypt(filePath, RSAPrivateKeyFilePath)
     elif selection == "3":
         print("Exiting")
         repeat = False

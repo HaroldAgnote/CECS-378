@@ -55,8 +55,6 @@ while(repeat):
 
         jsonData = {}
         
-        print("Ciphertext type: " + str(type(cipherText)))
-
         #Create the dictionary
         jsonData["Cipher Text"] =  b64encode(cipherText).decode('utf-8'), 
         jsonData["IV"] =  b64encode(IV).decode('utf-8'), 

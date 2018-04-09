@@ -90,8 +90,8 @@ def MyRSADecryptMAC(filePath, RSAPrivateKeyFilePath):
 		)
 
 		# Split concatenated keys
-		EncKey = combinedKey[:32]
-		HMACKey = combinedKey[32:]
+		EncKey = combinedKey[:constants.KEY_LENGTH]
+		HMACKey = combinedKey[constants.KEY_LENGTH:]
 
 		# Call File Decryption
 		MyFileDecryptMAC(fileName, cipherText, IV, tag, EncKey, HMACKey, ext)

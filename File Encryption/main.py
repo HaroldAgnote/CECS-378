@@ -10,8 +10,8 @@ import constants
 
 def genRSAKey():
 	privateKey = rsa.generate_private_key(
-		public_exponent = 65537, 
-		key_size = 2048, 
+		public_exponent = constants.PUBLIC_EXPONENT, 
+		key_size = constants.RSA_KEY_LENGTH, 
 		backend = default_backend()
 	)
 	privatePEM = privateKey.private_bytes(
@@ -43,11 +43,11 @@ while(repeat):
 		filePath = input("Enter the filepath for the file to be encrypted (e.g. files/larry.jpg): ")
 
 		# Generate private/public key if it does not already exist
-		if(not os.path.isfile("publicKey.pem")):
+		if((not os.path.isfile(constants.PUBLIC_KEY_FILE_PATH)) or (not os.path.isfile(constants.PRIVATE_KEY_FILE_PATH))):
 			genRSAKey()
 
 		# Call the encryptor
-		RSACipher, cipherText, IV, tag, ext = MyEncrypt.MyRSAEncryptMAC(filePath = filePath, RSAPublicKeyFilePath = "publicKey.pem")
+		RSACipher, cipherText, IV, tag, ext = MyEncrypt.MyRSAEncryptMAC(filePath = filePath, RSAPublicKeyFilePath = constants.PUBLIC_KEY_FILE_PATH)
 
 		# Create json file from dictionary
 		fileName = filePath.rsplit(".", 1)[0]
@@ -76,7 +76,7 @@ while(repeat):
 		filePath = input("Enter the filepath for the file to be decrypted (e.g. files/larry.json): ")
 
 		# Set the private key filepath
-		RSAPrivateKeyFilePath = "privateKey.pem"
+		RSAPrivateKeyFilePath = constants.PRIVATE_KEY_FILE_PATH
 
 		# Decrypt the encrypted message
 		MyDecrypt.MyRSADecryptMAC(filePath, RSAPrivateKeyFilePath)

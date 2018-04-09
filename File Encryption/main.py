@@ -32,53 +32,58 @@ def genRSAKey():
 # Allows the user to input a filepath of a file to encrypt/decrypt
 repeat = True
 while(repeat):
-    print("File Encryptor/Decryptor")
-    print("---------------------------")
-    print("1. Encrypt a file")
-    print("2. Decrypt a file")
-    print("3. Exit")
-    selection = input()
-    if selection == "1":
-        # Get user input for the file
-        filePath = input("Enter the filepath for the file to be encrypted (e.g. larry.jpg): ")
+	print("File Encryptor/Decryptor")
+	print("---------------------------")
+	print("1. Encrypt a file")
+	print("2. Decrypt a file")
+	print("3. Exit")
+	selection = input()
+	if selection == "1":
+		# Get user input for the file
+		filePath = input("Enter the filepath for the file to be encrypted (e.g. files/larry.jpg): ")
 
-        # Generate private/public key
-        genRSAKey()
+		# Generate private/public key if it does not already exist
+		if(not os.path.isfile("publicKey.pem")):
+			genRSAKey()
 
-        # Call the encryptor
-        cipherText, IV, key, ext = MyEncrypt.MyRSAEncrypt(filePath = filePath, RSAPublicKeyFilePath = "publicKey.pem")
+		# Call the encryptor
+		RSACipher, cipherText, IV, tag, ext = MyEncrypt.MyRSAEncryptMAC(filePath = filePath, RSAPublicKeyFilePath = "publicKey.pem")
 
-        # Create json file from dictionary
-        fileName = filePath.rsplit(".", 1)[0]
-        jsonFileName = fileName + ".json"
-        outfile = open(jsonFileName, 'w')
+		# Create json file from dictionary
+		fileName = filePath.rsplit(".", 1)[0]
+		jsonFileName = fileName + ".json"
+		outfile = open(jsonFileName, 'w')
 
-        jsonData = {}
-        
-        #Create the dictionary
-        jsonData["Cipher Text"] =  b64encode(cipherText).decode('utf-8'), 
-        jsonData["IV"] =  b64encode(IV).decode('utf-8'), 
-        jsonData["Key"] =  b64encode(key).decode('utf-8'), 
-        jsonData["Extension"] =  ext
+		jsonData = {}
+		
+		# Create the dictionary
+		jsonData["RSACipher"] = b64encode(RSACipher).decode('utf-8'),
+		jsonData["Cipher Text"] = b64encode(cipherText).decode('utf-8'), 
+		jsonData["IV"] = b64encode(IV).decode('utf-8'), 
+		jsonData["Tag"] = b64encode(tag).decode('utf-8'), 
+		jsonData["Extension"] = ext
 
-        json.dump(jsonData, outfile, ensure_ascii=False)
+		# Write to json
+		json.dump(jsonData, outfile, ensure_ascii=False)
+		outfile.close()
 
-        outfile.close()
+		# Delete the original file
+		os.remove(filePath)
 
-        print("Results of encryption stored at: " + jsonFileName)
-    elif selection == "2":
-        # Get user input for encrypted file
-        filePath = input("Enter the filepath for the file to be decrypted: ")
+		print("Results of encryption stored at: " + jsonFileName)
+	elif selection == "2":
+		# Get user input for encrypted file
+		filePath = input("Enter the filepath for the file to be decrypted (e.g. files/larry.json): ")
 
-        # Set the private key filepath
-        RSAPrivateKeyFilePath = "privateKey.pem"
+		# Set the private key filepath
+		RSAPrivateKeyFilePath = "privateKey.pem"
 
-        # Decrypt the encrypted message
-        MyDecrypt.MyRSADecrypt(filePath, RSAPrivateKeyFilePath)
-    elif selection == "3":
-        print("Exiting")
-        repeat = False
-    else:
-        print("Invalid input")
+		# Decrypt the encrypted message
+		MyDecrypt.MyRSADecryptMAC(filePath, RSAPrivateKeyFilePath)
+	elif selection == "3":
+		print("Exiting")
+		repeat = False
+	else:
+		print("Invalid input")
 
 os.system("pause")

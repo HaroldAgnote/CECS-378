@@ -1,3 +1,4 @@
+missing module named org - imported by pickle, /home/harold/Spring_2018_Work/CECS-378/File Encryption/payload.py
 excluded module named _frozen_importlib - imported by importlib, importlib.abc, /home/harold/Spring_2018_Work/CECS-378/File Encryption/payload.py
 missing module named _frozen_importlib_external - imported by importlib._bootstrap, importlib, importlib.abc, /home/harold/Spring_2018_Work/CECS-378/File Encryption/payload.py
 missing module named _winreg - imported by platform, /home/harold/Spring_2018_Work/CECS-378/File Encryption/payload.py
@@ -5,18 +6,17 @@ missing module named _scproxy - imported by urllib.request
 missing module named java - imported by platform, /home/harold/Spring_2018_Work/CECS-378/File Encryption/payload.py
 missing module named 'java.lang' - imported by platform, /home/harold/Spring_2018_Work/CECS-378/File Encryption/payload.py, xml.sax._exceptions
 missing module named vms_lib - imported by platform, /home/harold/Spring_2018_Work/CECS-378/File Encryption/payload.py
-missing module named msvcrt - imported by subprocess, /home/harold/Spring_2018_Work/CECS-378/File Encryption/payload.py, getpass
-missing module named _winapi - imported by subprocess, /home/harold/Spring_2018_Work/CECS-378/File Encryption/payload.py
 missing module named winreg - imported by platform, mimetypes, /home/harold/Spring_2018_Work/CECS-378/File Encryption/payload.py, urllib.request
 missing module named urllib.unquote - imported by urllib, asn1crypto._iri
 missing module named urllib.quote - imported by urllib, asn1crypto._iri
+missing module named nt - imported by os, shutil, ntpath, /home/harold/Spring_2018_Work/CECS-378/File Encryption/payload.py
+missing module named msvcrt - imported by subprocess, /home/harold/Spring_2018_Work/CECS-378/File Encryption/payload.py, getpass
+missing module named _winapi - imported by subprocess, /home/harold/Spring_2018_Work/CECS-378/File Encryption/payload.py
 missing module named _dummy_threading - imported by dummy_threading, /home/harold/Spring_2018_Work/CECS-378/File Encryption/payload.py
-missing module named nt - imported by os, ntpath, shutil, /home/harold/Spring_2018_Work/CECS-378/File Encryption/payload.py
 missing module named 'org.python' - imported by copy, /home/harold/Spring_2018_Work/CECS-378/File Encryption/payload.py, xml.sax
-missing module named org - imported by pickle, /home/harold/Spring_2018_Work/CECS-378/File Encryption/payload.py
 missing module named StringIO - imported by six
-missing module named cStringIO - imported by asn1crypto.core
-missing module named copy_reg - imported by cStringIO
+runtime module named six.moves - imported by cryptography.x509.general_name
 missing module named UserDict - imported by asn1crypto._ordereddict
 missing module named urlparse - imported by asn1crypto._iri
-runtime module named six.moves - imported by cryptography.x509.general_name
+missing module named cStringIO - imported by asn1crypto.core
+missing module named copy_reg - imported by cStringIO

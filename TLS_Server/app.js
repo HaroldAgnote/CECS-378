@@ -1,6 +1,4 @@
 var express = require('express');
-var httpApp = express();
-var httpsApp = express();
 var http = require('http')
 var https = require('https')
 var mongoose = require('mongoose');
@@ -19,13 +17,25 @@ var ONE_YEAR = 31536000000;
 
 var routes = require('./routes/key_routes')
 
-routes(httpApp)
-routes(httpsApp)
+var httpApp = express();
+var httpsApp = express();
+
+var httpAppPort = 8080;
+var httpsAppPort = 8443;
+
+httpApp.use(bodyParser.urlencoded({ extended: true }));
+httpApp.use(bodyParser.json());
 
 httpsApp.use(helmet.hsts({
     maxAge: ONE_YEAR,
     includeSubdomains: true,
     force: true}));
+
+httpsApp.use(bodyParser.urlencoded({ extended: true }));
+httpsApp.use(bodyParser.json());
+
+routes(httpApp)
+routes(httpsApp)
 
 var cipher = ['ECDHE-ECDSA-AES256-GCM-SHA384',
 'ECDHE-RSA-AES256-GCM-SHA384',
@@ -57,6 +67,15 @@ http.createServer(httpApp).listen(8080);
 https.createServer(options, httpsApp).listen(8443);
 
 console.log("Server running on localhost");
-console.log("http running on port 8080");
-console.log("https running on port 8443");
+console.log("http running on port " + httpAppPort); 
+console.log("https running on port " + httpsAppPort); 
 
+console.log("Initializing mongo database");
+
+var uri = "mongodb://localhost/server"
+
+mongoose.Promise = global.Promise;
+mongoose.connect(uri).catch(function (err) {
+    console.log("Error connecting to server: ", err);
+    process.exit(1);
+});

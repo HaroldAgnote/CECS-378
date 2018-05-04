@@ -11,10 +11,9 @@ exports.list_all_keys = function(req, res) {
   });
 };
 
-
-
-
 exports.create_a_key = function(req, res) {
+    console.log("Received request: ");
+    console.log(req.body);
   var new_key = new Key(req.body);
   new_key.save(function(err, key) {
     if (err)
@@ -43,8 +42,6 @@ exports.update_a_key = function(req, res) {
 
 
 exports.delete_a_key = function(req, res) {
-
-
   Key.remove({
     _id: req.params.keyId
   }, function(err, key) {

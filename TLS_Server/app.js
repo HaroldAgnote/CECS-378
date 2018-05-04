@@ -1,9 +1,8 @@
 var express = require('express');
 var httpApp = express();
 var httpsApp = express();
-var http = require('http');
-var https = require('https');
-var mongo = require('mongodb');
+var http = require('http')
+var https = require('https')
 
 var fs = require('fs')
 
@@ -48,13 +47,3 @@ console.log("Server running on localhost");
 console.log("http running on port 8080");
 console.log("https running on port 8443");
 
-console.log("Initializing mongo database");
-
-var MongoClient = mongo.MongoClient
-var uri = "mongodb+srv://cecs378:cecs378@cecs-378-d5nhx.mongodb.net/test"
-
-MongoClient.connect(uri, function(err, client) {
-    const collection = client.db("test").collection("keys");
-
-    client.close();
-});

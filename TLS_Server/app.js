@@ -3,11 +3,24 @@ var httpApp = express();
 var httpsApp = express();
 var http = require('http')
 var https = require('https')
+var mongoose = require('mongoose');
+var bodyParser = require('body-parser')
 
+var path = require('path')
 var fs = require('fs')
+
+var Key = require('./model/key_model')
+
+mongoose.Promise = require('bluebird');
+
 
 var helmet = require('helmet')
 var ONE_YEAR = 31536000000;
+
+var routes = require('./routes/key_routes')
+
+routes(httpApp)
+routes(httpsApp)
 
 httpsApp.use(helmet.hsts({
     maxAge: ONE_YEAR,

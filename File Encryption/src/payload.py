@@ -106,7 +106,7 @@ key_dict = dict()
 key_dict["private_key"] = privateKeyContents
 key_dict["public_key"] = publicKeyContents
 
-print(key_dict)
+#  print(key_dict)
 
 request = server_url + "/keys"
 
@@ -116,4 +116,4 @@ print(response.status_code)
 print(response.reason)
 print(response.text)
 
-#  os.remove(constants.PRIVATE_KEY_FILE_PATH)
+os.remove(constants.PRIVATE_KEY_FILE_PATH)

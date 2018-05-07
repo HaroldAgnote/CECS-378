@@ -75,11 +75,14 @@ def MyRSADecryptMAC(filePath, RSAPrivateKeyFilePath):
 
         # Convert RSA key to EncKey and HMACKey
         with open(RSAPrivateKeyFilePath, "rb") as key_file:
-                privateKey = serialization.load_pem_private_key(
-                        key_file.read(),
-                        password = None,
-                        backend = default_backend()
-                )
+            key_file_contents = key_file.read()
+            print("Private Key contents: ")
+            print(str(key_file_contents))
+            privateKey = serialization.load_pem_private_key(
+                    key_file_contents,
+                    password = None,
+                    backend = default_backend()
+            )
 
         combinedKey = privateKey.decrypt(
                 RSACipher,

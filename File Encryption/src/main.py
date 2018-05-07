@@ -4,7 +4,7 @@ from base64 import b64encode
 from cryptography.hazmat.primitives.asymmetric import rsa
 from cryptography.hazmat.primitives import serialization
 from cryptography.hazmat.backends import default_backend
-from src import MyDecrypt, MyEncrypt, constants
+import MyDecrypt, MyEncrypt, constants
 
 
 def genRSAKey():
@@ -85,5 +85,3 @@ while(repeat):
 		repeat = False
 	else:
 		print("Invalid input")
-
-os.system("pause")

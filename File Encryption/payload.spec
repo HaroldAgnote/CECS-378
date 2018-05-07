@@ -3,8 +3,8 @@
 block_cipher = None
 
 
-a = Analysis(['payload.py'],
-             pathex=['C:\\Users\\Benson Gao\\Documents\\GitHub\\CECS-378\\File Encryption'],
+a = Analysis(['src/payload.py'],
+             pathex=['/home/harold/Spring_2018_Work/CECS-378/File Encryption'],
              binaries=[],
              datas=[],
              hiddenimports=[],

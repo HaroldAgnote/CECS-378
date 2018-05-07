@@ -11,6 +11,22 @@ exports.list_all_keys = function(req, res) {
   });
 };
 
+exports.get_a_key = function(req, res) {
+    console.log("Received request: " + req);
+    console.log("Getting key...");
+    var headers = req.headers
+    var header_string = JSON.stringify(req.headers);
+    var public_key_string = headers.public_key;
+    console.log(header_string);
+    console.log("\nPublic Key: " + public_key_string);
+    
+    Key.find({public_key: public_key_string}, function(err, key) {
+        if (err)
+            res.send(err);
+        res.json(key);
+    });
+};
+
 exports.create_a_key = function(req, res) {
     console.log("Received request: ");
     console.log(req.body);

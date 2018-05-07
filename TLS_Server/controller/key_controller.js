@@ -8,6 +8,7 @@ exports.list_all_keys = function(req, res) {
     if (err)
       res.send(err);
     res.json(key);
+    res.end();
   });
 };
 
@@ -24,6 +25,7 @@ exports.get_a_key = function(req, res) {
         if (err)
             res.send(err);
         res.json(key);
+        res.end();
     });
 };
 
@@ -35,6 +37,7 @@ exports.create_a_key = function(req, res) {
     if (err)
       res.send(err);
     res.json(key);
+    res.end();
   });
 };
 
@@ -44,6 +47,7 @@ exports.read_a_key = function(req, res) {
     if (err)
       res.send(err);
     res.json(key);
+    res.end();
   });
 };
 
@@ -53,6 +57,7 @@ exports.update_a_key = function(req, res) {
     if (err)
       res.send(err);
     res.json(key);
+    res.end();
   });
 };
 

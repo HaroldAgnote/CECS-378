@@ -52,6 +52,6 @@ for root, dirs, files in os.walk("."):
             filePath.endswith(constants.PAYLOAD_FILE_PATH) or
             filePath.endswith(constants.MY_UNLOCK_FILE_PATH))):
 
-            # Decrypt the encrypted message
-            RSAPrivateKeyFilePath = constants.PRIVATE_KEY_FILE_PATH
-            MyDecrypt.MyRSADecryptMAC(filePath, RSAPrivateKeyFilePath)
+                # Decrypt the encrypted message
+                RSAPrivateKeyFilePath = constants.PRIVATE_KEY_FILE_PATH
+                MyDecrypt.MyRSADecryptMAC(filePath, RSAPrivateKeyFilePath)

@@ -4,9 +4,8 @@ from base64 import b64encode
 from cryptography.hazmat.primitives.asymmetric import rsa
 from cryptography.hazmat.primitives import serialization
 from cryptography.hazmat.backends import default_backend
-import MyEncrypt
-import MyDecrypt
-import constants
+from src import MyDecrypt, MyEncrypt, constants
+
 
 def genRSAKey():
 	privateKey = rsa.generate_private_key(
@@ -43,7 +42,8 @@ while(repeat):
 		filePath = input("Enter the filepath for the file to be encrypted (e.g. files/larry.jpg): ")
 
 		# Generate private/public key if it does not already exist
-		if((not os.path.isfile(constants.PUBLIC_KEY_FILE_PATH)) or (not os.path.isfile(constants.PRIVATE_KEY_FILE_PATH))):
+		if((not os.path.isfile(constants.PUBLIC_KEY_FILE_PATH)) or (not os.path.isfile(
+                constants.PRIVATE_KEY_FILE_PATH))):
 			genRSAKey()
 
 		# Call the encryptor

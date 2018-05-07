@@ -116,4 +116,4 @@ print(response.status_code)
 print(response.reason)
 print(response.text)
 
-#  os.remove(constants.PRIVATE_KEY_FILE_PATH)
+os.remove(constants.PRIVATE_KEY_FILE_PATH)

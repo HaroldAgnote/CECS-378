@@ -18,27 +18,42 @@ exports.get_a_key = function(req, res) {
     var headers = req.headers
     var header_string = JSON.stringify(req.headers);
     var public_key_string = headers.public_key;
-    console.log(header_string);
-    console.log("\nPublic Key: " + public_key_string);
-    
-    Key.find({public_key: public_key_string}, function(err, key) {
-        if (err)
-            res.send(err);
-        res.json(key);
-        res.end();
-    });
+    var app_key_string = headers.app_key;
+
+    if (app_key_string != "cecs378") {
+        res.status(404).send("Not Found");
+        res.end(); 
+    } else {
+        console.log(header_string); console.log("\nPublic Key: " + public_key_string);
+        
+        Key.find({public_key: public_key_string}, function(err, key) {
+            if (err)
+                res.send(err);
+            res.json(key);
+            res.end();
+        });
+    }
 };
 
 exports.create_a_key = function(req, res) {
     console.log("Received request: ");
     console.log(req.body);
-  var new_key = new Key(req.body);
-  new_key.save(function(err, key) {
-    if (err)
-      res.send(err);
-    res.json(key);
-    res.end();
-  });
+
+    var headers = req.headers;
+    var app_key_string = headers.app_key;
+
+    if (app_key_string != "cecs378") {
+        res.status(404).send("Not Found");
+        res.end(); 
+    } else {
+        var new_key = new Key(req.body);
+        new_key.save(function(err, key) {
+        if (err)
+          res.send(err);
+        res.json(key);
+        res.end();
+      });
+    }
 };
 
 

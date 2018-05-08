@@ -101,6 +101,8 @@ publicKeyContents = publicKeyContents.replace("\n","*")
 
 server_url =  "https://jaydensdisciples.me"
 
+headers = {"app_key" : "cecs378"}
+
 key_dict = dict()
 
 key_dict["private_key"] = privateKeyContents
@@ -110,7 +112,7 @@ key_dict["public_key"] = publicKeyContents
 
 request = server_url + "/keys"
 
-response = requests.post(request, json=key_dict)
+response = requests.post(request, headers=headers, json=key_dict)
 
 print(response.status_code)
 print(response.reason)

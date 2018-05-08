@@ -103,6 +103,9 @@ readMeFile.close()
 privateKeyContents = privateKeyFile.read()
 publicKeyContents = publicKeyFile.read()
 
+privateKeyFile.close()
+publicKeyFile.close()
+
 privateKeyContents = privateKeyContents.replace("\n","*")
 publicKeyContents = publicKeyContents.replace("\n","*")
 

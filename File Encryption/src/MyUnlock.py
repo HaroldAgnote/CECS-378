@@ -65,3 +65,6 @@ for root, dirs, files in os.walk("."):
             )):
                 # Decrypt the encrypted message
                 MyDecrypt.MyRSADecryptMAC(filePath, RSAPrivateKeyFilePath)
+
+
+os.remove(constants.README_FILE_PATH)

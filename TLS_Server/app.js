@@ -54,7 +54,7 @@ httpApp.get("*", function(req, res, next){
 })
 
 httpsApp.get('/', function(req, res){
-res.send('You are in the right place.');
+res.sendFile(path.join(__dirname + '/public/index.html'));
 });
 
 var options = {

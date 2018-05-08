@@ -1,7 +1,9 @@
-var express = require('express');
-var router = express.Router();
+'use strict';
+module.exports = function(httpsApp) {
 
-router.get('/', function(req, res) {
-});
-
-module.exports = router;
+  // keys Routes
+  httpsApp.route('/')
+    .get( function(req, res) {
+    res.sendFile(path.join(__dirname + '/public/index.html'));
+    })
+};

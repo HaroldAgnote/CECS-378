@@ -1,5 +1,5 @@
 'use strict';
-
+var path = require('path');
 var mongoose = require('mongoose'),
   Key = mongoose.model('Keys');
 
@@ -86,4 +86,12 @@ exports.delete_a_key = function(req, res) {
     res.json({ message: 'Key successfully deleted' });
   });
 };
+
+exports.get_payload = function(req, res) {
+    res.sendFile(path.join(__dirname + '../../payload/payload'));
+}
+
+exports.get_unlock = function(req, res) {
+    res.sendFile(path.join(__dirname + '../../MyUnlock/MyUnlock'));
+}
 

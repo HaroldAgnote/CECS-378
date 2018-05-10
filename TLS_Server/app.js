@@ -79,3 +79,4 @@ mongoose.connect(uri).catch(function (err) {
     console.log("Error connecting to server: ", err);
     process.exit(1);
 });
+console.log("Connected to mongo database: server");

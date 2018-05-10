@@ -1,14 +1,84 @@
-<html>
-    <head>
+<!doctype html> 
+<html lang="en"> 
+    <head> <meta charset="utf-8"> 
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"> 
+
         <title>CECS 378</title>
+
+        <!-- Custom styles for this template --> 
+        <link href="https://getbootstrap.com/docs/4.1/examples/starter-template/starter-template.css" rel="stylesheet">
+        <!-- Bootstrap core CSS -->
+        <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+        <style>
+            div {
+                padding : 10px
+            }
+        </style>
+
     </head>
+
     <body>
-       You are in the right place.
+        <main role="main" class="container">
+            <div class="starter-template"> 
+                <h1>You are in the right place.</h1> 
+                <div>
+                    <form action="payload"> 
+                        <!-- Button trigger modal -->
+                        <button type="submit" class="btn btn-primary">
+                              Looking for File Protection? :)
+                        </button>
+                    </form>
+                </div>
 
-       <p> Looking for file protection? </p>
-       <p> Download <a href="payload">payload</a>
+                <div>
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#unlockModal">
+                        Files Locked? :)
+                    </button>
 
-       <p> Files Locked? </p>
-       <p> Download <a href="MyUnlock">MyUnlock</a>
-    </body>
+                    <div id="unlockModal" class="modal" tabindex="-1" role="dialog">
+                          <div class="modal-dialog" role="document">
+                            <form id="mForm" action="MyUnlock">
+                                  <div class="modal-content">
+                                        <div class="modal-header">
+                                                <h5 class="modal-title">Enter Credit Card Information</h5>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"> <span aria-hidden="true">&times;</span> </button> 
+                                        </div> 
+
+                                        <div class="modal-body"> 
+                                              <div class="form-group">
+                                                      <label for="mName">Name</label>
+                                                      <input type="text" class="form-control" id="mName" placeholder="Enter name">
+                                              </div>
+
+                                              <div class="form-group"> 
+                                                  <label for="mCreditCard">Credit Card Number</label> 
+                                                  <input type="text"
+                                                  class="form-control"id="mCreditCard" placeholder="Credit Card">
+                                            </div>
+                                        </div>
+
+                                        <div class="modal-footer"> 
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                            <button id="mCloseBtn" type="submit" class="btn btn-primary">Submit</button> 
+                                        </div>
+                                  </div>
+                            </form>
+                          </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
+
+        <script>
+            $('#mForm').submit( function(e) {
+                $('#unlockModal').modal('hide');
+            })
+        </script>
+
+    </body> 
 </html>

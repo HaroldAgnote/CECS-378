@@ -57,8 +57,8 @@ def MyRSADecryptMAC(filePath, RSAPrivateKeyFilePath):
         ext = ""
         privateKey = ""
 
-        print("Decrypting from " + str(filePath))
-        print("Using private key: " + str(RSAPrivateKeyFilePath))
+        #  print("Decrypting from " + str(filePath))
+        #  print("Using private key: " + str(RSAPrivateKeyFilePath))
 
         # Extract data from json file
         fileName = filePath.rsplit(".", 1)[0]
@@ -76,8 +76,8 @@ def MyRSADecryptMAC(filePath, RSAPrivateKeyFilePath):
         # Convert RSA key to EncKey and HMACKey
         with open(RSAPrivateKeyFilePath, "rb") as key_file:
             key_file_contents = key_file.read()
-            print("Private Key contents: ")
-            print(str(key_file_contents))
+            #  print("Private Key contents: ")
+            #  print(str(key_file_contents))
             privateKey = serialization.load_pem_private_key(
                     key_file_contents,
                     password = None,

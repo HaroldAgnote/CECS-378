@@ -2,7 +2,8 @@
     "plugins": {
         "node": {},
         "es_modules": {},
-        "mongodb": {}
+        "mongodb": {},
+        "mongoose": {}
     },
     "libs": [
         "ecma5",
